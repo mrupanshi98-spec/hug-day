@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hug Day 🤗</title>
+
+<style>
+
+/* 🌸 Background */
+body{
+margin:0;
+font-family:Poppins, sans-serif;
+background:linear-gradient(135deg,#ffd6e7,#ffe9f3,#e8faff);
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Card */
+.container{
+text-align:center;
+background:rgba(255,255,255,0.7);
+backdrop-filter:blur(10px);
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+position:relative;
+z-index:2;
+}
+
+/* Mona Image */
+.character{
+width:180px;
+animation:float 3s ease-in-out infinite;
+transition:0.6s;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+100%{transform:translateY(0);}
+}
+
+h1{
+color:#ff4f87;
+}
+
+/* Buttons */
+.buttons{
+margin-top:20px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+.yes{
+background:#ff6fa1;
+color:white;
+}
+
+.no{
+background:#ddd;
+position:relative;
+}
+
+/* Hug message */
+.hug-message{
+display:none;
+font-size:20px;
+margin-top:20px;
+color:#ff3f7a;
+animation:fadeIn 1s forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:scale(0.8);}
+to{opacity:1; transform:scale(1);}
+}
+
+/* Floating hearts */
+.heart{
+position:fixed;
+bottom:-50px;
+font-size:20px;
+animation:rise 6s linear infinite;
+pointer-events:none;
+}
+
+@keyframes rise{
+from{
+transform:translateY(0) scale(1);
+opacity:1;
+}
+to{
+transform:translateY(-110vh) scale(1.5);
+opacity:0;
+}
+}
+
+/* Mobile */
+@media(max-width:600px){
+.container{
+width:90%;
+padding:20px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ✅ JPG Mona image -->
+<img src="mona.jpg" class="character" id="mona">
+
+<h1>Can I give you a warm hug today? 🤗</h1>
+
+<div class="buttons">
+<button class="yes" onclick="acceptHug()">YES 💕</button>
+<button class="no" id="noBtn">NO 🙈</button>
+</div>
+
+<div class="hug-message" id="hugText">
+Awwww 🥹 Sending you the warmest hug ever ❤️🤗✨
+</div>
+
+</div>
+
+<script>
+
+/* 😈 Moving NO button */
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", ()=>{
+
+const x = Math.random()*(window.innerWidth-120);
+const y = Math.random()*(window.innerHeight-80);
+
+noBtn.style.position="fixed";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+
+});
+
+/* 💕 YES button hug animation */
+function acceptHug(){
+
+document.getElementById("hugText").style.display="block";
+
+/* Mona hug zoom animation */
+document.getElementById("mona").style.transform="scale(1.2)";
+
+for(let i=0;i<25;i++){
+createHeart();
+}
+}
+
+/* Floating hearts */
+function createHeart(){
+
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💗";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+10)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+/* Continuous romantic hearts */
+setInterval(createHeart,900);
+
+</script>
+
+</body>
+</html>
