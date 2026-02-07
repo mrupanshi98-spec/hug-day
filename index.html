@@ -29,6 +29,7 @@ border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
 position:relative;
 z-index:2;
+overflow:hidden;
 }
 
 /* Mona Image */
@@ -51,6 +52,8 @@ color:#ff4f87;
 /* Buttons */
 .buttons{
 margin-top:20px;
+position:relative;
+height:70px;
 }
 
 button{
@@ -70,7 +73,7 @@ color:white;
 
 .no{
 background:#ddd;
-position:relative;
+position:absolute;
 }
 
 /* Hug message */
@@ -122,12 +125,12 @@ padding:20px;
 
 <div class="container">
 
-<!-- ✅ JPG Mona image -->
+<!-- Mona image (JPG supported) -->
 <img src="mona.jpg" class="character" id="mona">
 
 <h1>Can I give you a warm hug today? 🤗</h1>
 
-<div class="buttons">
+<div class="buttons" id="buttonArea">
 <button class="yes" onclick="acceptHug()">YES 💕</button>
 <button class="no" id="noBtn">NO 🙈</button>
 </div>
@@ -140,17 +143,22 @@ Awwww 🥹 Sending you the warmest hug ever ❤️🤗✨
 
 <script>
 
-/* 😈 Moving NO button */
+/* 😈 NO button stays inside card */
 const noBtn = document.getElementById("noBtn");
+const buttonArea = document.getElementById("buttonArea");
 
 noBtn.addEventListener("mouseover", ()=>{
 
-const x = Math.random()*(window.innerWidth-120);
-const y = Math.random()*(window.innerHeight-80);
+const areaRect = buttonArea.getBoundingClientRect();
 
-noBtn.style.position="fixed";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+const maxX = areaRect.width - noBtn.offsetWidth;
+const maxY = areaRect.height - noBtn.offsetHeight;
+
+const x = Math.random()*maxX;
+const y = Math.random()*maxY;
+
+noBtn.style.left = x+"px";
+noBtn.style.top = y+"px";
 
 });
 
@@ -159,7 +167,6 @@ function acceptHug(){
 
 document.getElementById("hugText").style.display="block";
 
-/* Mona hug zoom animation */
 document.getElementById("mona").style.transform="scale(1.2)";
 
 for(let i=0;i<25;i++){
@@ -185,7 +192,7 @@ heart.remove();
 
 }
 
-/* Continuous romantic hearts */
+/* Continuous hearts */
 setInterval(createHeart,900);
 
 </script>
